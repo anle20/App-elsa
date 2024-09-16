@@ -1,0 +1,13 @@
+replicaCount: 1
+
+image:
+  repository: lehuuan18/hackathon-starter:latest
+  pullPolicy: Always
+  # Overrides the image tag whose default is the chart appVersion.
+
+service:
+  type: NodePort
+  port: 8080
+
+node:
+  port: 30001

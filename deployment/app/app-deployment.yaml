@@ -1,0 +1,34 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: hackathon-app
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: hackathon-app
+  template:
+    metadata:
+      labels:
+        app: hackathon-app
+    spec:
+      containers:
+      - name: hackathon-app
+        image: lehuuan18/hackathon-starter:latest  # build this image later
+        ports:
+        - containerPort: 8080
+        env:
+        - name: MONGODB_URI
+          value: "mongodb://mongodb:27017/test"  # MongoDB service URL
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: hackathon-app
+spec:
+  type: NodePort
+  ports:
+    - port: 8080
+      nodePort: 30001  # You can access this via Minikube IP
+  selector:
+    app: hackathon-app

@@ -1,0 +1,101 @@
+#!/usr/bin/env groovy
+pipeline {
+    agent none
+    stages {
+
+        stage('build and test') {
+            agent {
+                kubernetes {
+                    yaml '''
+                    apiVersion: v1
+                    kind: Pod
+                    spec:
+                      containers:
+                      - name: nodejs-alpine
+                        image: node:20-alpine
+                        command:
+                        - cat
+                        tty: true
+                    '''
+                }
+            }
+            steps {
+                container('nodejs-alpine') {
+                    sh '''
+                        npm install
+                        npm run test
+                    '''
+                }
+            }
+        }
+
+        stage('build and push image') {
+            agent {
+                kubernetes {
+                    yaml '''
+apiVersion: v1
+kind: Pod
+metadata:
+    name: kaniko
+spec:
+    containers:
+    - name: jnlp
+      workingDir: /home/jenkins
+    - name: kaniko
+      workingDir: /home/jenkins
+      image: gcr.io/kaniko-project/executor:debug
+      command:
+      - /busybox/cat
+      tty: true
+      volumeMounts:
+      - name: kaniko-secret
+        mountPath: /kaniko/.docker/config.json
+        subPath: config.json
+    volumes:
+    - name: kaniko-secret
+      secret:
+        secretName: docker-registry-secret
+        items:
+        - key: .dockerconfigjson
+          path: config.json
+'''
+                }
+            }
+            steps {
+                container(name: 'kaniko', shell: '/busybox/sh') {
+                        sh '''#!/busybox/sh
+                            /kaniko/executor --context `pwd` --dockerfile `pwd`/Dockerfile --verbosity debug --destination docker.io/lehuuan18/hackathon-starter:latest                       
+                        '''
+                }
+            }
+        }
+
+
+        stage('deploy to k8s') {
+            agent {
+                kubernetes {
+                    yaml '''
+                    apiVersion: v1
+                    kind: Pod
+                    spec:
+                      serviceAccountName: jenkins
+                      containers:
+                      - name: helm-alpine
+                        image: alpine/helm
+                        command:
+                        - cat
+                        tty: true
+                    '''
+                }
+            }
+            steps {
+                container('helm-alpine') {
+                    sh '''
+                        cd hackathon-app
+                        helm upgrade hackathon-app .
+                    '''
+                }
+            }
+        }
+    }
+}
