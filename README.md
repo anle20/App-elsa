@@ -1,22 +1,23 @@
 # Architecture
 
 ## Environment tool
-CI/CD: Jenkins 
-Containerization: Docker
-Container Orchestration: Minikube
-Version control: github
-K8s managed: helm
+- CI/CD: Jenkins 
+- Containerization: Docker
+- Container Orchestration: Minikube
+- Version control: github
+- K8s managed: helm
 
 ## Setup local enviroment
 Refer to Infra repo:
-https://github.com/anle20/Infra-elsa/blob/main/README.md
+https://github.com/anle20/Infra-elsa
 
 ## Deploy Hackathon-app from local
 Using deploy.sh to deploy
+```bash
 cd ./script
 ./deploy.sh
+```
 
-Step:
 1. We will need to deploy MongoDB first
 2. After that, using helm to deploy application
 
