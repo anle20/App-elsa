@@ -20,6 +20,7 @@ cd ./script
 
 1. We will need to deploy MongoDB first
 2. After that, using helm to deploy application
+3. Now open the browser and enter hackathon-elsa.example
 
 ## Deploy Hackathon-app through CICD
 We use Jenkins operator (master-slave) which is deployed on K8s. Refer to below diagram
