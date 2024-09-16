@@ -33,10 +33,9 @@ kubectl apply -f ../deployment/db/mongodb-deployment.yaml
 <img width="1298" alt="Screenshot 2024-09-16 at 21 15 45" src="https://github.com/user-attachments/assets/be2a163b-e0bd-4960-886f-8a18dd016130">
 
 ## Wish Feature
-1. Config PVC for MongoDB to save the data to local
-2. Monitoring:
+1. Monitoring:
 We can use Prometheus and Grafana to monitor metrics
-3. Logging:
+2. Logging:
 We can use EFK(Elastic search - Fluentd - Kibana) stack to collect the log and vizualiztion
 
 ## Cloud Architecture
