@@ -52,6 +52,9 @@ Architecture Components:
 - Private Subnets: Subnets that do not allow communication with the internet
 - DocumentDB: Store data (replace to MongoDB)
 
+![cloud drawio](https://github.com/user-attachments/assets/fe4afa5b-dadf-4974-be0a-d274ed67bbae)
+
+
 
 
 
