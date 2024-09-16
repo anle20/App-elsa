@@ -26,6 +26,8 @@ We use Jenkins operator (master-slave) which is deployed on K8s. Refer to below 
 kubectl apply -f ../deployment/db/mongodb-deployment.yaml
 
 2. Trigger hackathon pipeline on jenkins
+<img width="1070" alt="Screenshot 2024-09-16 at 21 15 30" src="https://github.com/user-attachments/assets/24c2b4f3-d3ee-4da0-8b08-d2d9903cdc4e">
+<img width="1298" alt="Screenshot 2024-09-16 at 21 15 45" src="https://github.com/user-attachments/assets/be2a163b-e0bd-4960-886f-8a18dd016130">
 
 
 
